@@ -1,0 +1,27 @@
+#!/bin/sh
+set -e
+
+DBLAUNCH_CONF=$HOME/.config/dblaunch/dblaunch.conf
+
+die() {
+    kdialog --error "$*"
+    exit 1
+}
+
+if [ ! -f $DBLAUNCH_CONF ] ; then
+    die "$DBLAUNCH_CONF does not exist."
+fi
+
+. $DBLAUNCH_CONF
+
+if [ -z "$DOS_BASE_DIR" ] ; then
+    die "\$DOS_BASE_DIR not set in $DBLAUNCH_CONF."
+fi
+
+conf=$DOS_BASE_DIR/$1.conf
+if [ ! -f $conf ] ; then
+    die "$conf does not exist."
+    exit 1
+fi
+cd $(dirname $conf)
+dosbox -conf $(basename $conf)

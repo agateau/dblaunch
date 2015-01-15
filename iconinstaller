@@ -1,0 +1,71 @@
+#!/bin/sh
+set -e
+
+SIZES="128 64 48 32 22 16"
+
+PROGNAME=$(basename $0)
+
+die() {
+    echo "$PROGNAME: $*" >&2
+    exit 1
+}
+
+usage() {
+    if [ "$*" != "" ] ; then
+        echo "Error: $*"
+    fi
+
+    cat << EOF
+Usage: $PROGNAME [OPTION ...] [png-file] [icon-name]
+<Program description>.
+
+Options:
+  -h, --help          display this usage message and exit
+  -d, --delete        delete things
+  -o, --output [FILE] write output to file
+EOF
+
+    exit 1
+}
+
+png_file=""
+icon_name=""
+vendor="iconinstaller"
+while [ $# -gt 0 ] ; do
+    case "$1" in
+    -h|--help)
+        usage
+        ;;
+    --vendor)
+        vendor="$2"
+        shift
+        ;;
+    -*)
+        usage "Unknown option '$1'"
+        ;;
+    *)
+        if [ -z "$png_file" ] ; then
+            png_file="$1"
+        elif [ -z "$icon_name" ] ; then
+            icon_name="$1"
+        else
+            usage "Too many arguments"
+        fi
+        ;;
+    esac
+    shift
+done
+
+if [ -z "$icon_name" ] ; then
+    usage "Not enough arguments"
+fi
+
+for size in $SIZES ; do
+    echo "$size"
+    convert -resize ${size}x${size} $png_file tmp.png
+    xdg-icon-resource install --size $size tmp.png $vendor-$icon_name
+    rm tmp.png
+done
+
+
+# vim:set ts=4 sw=4 et:
