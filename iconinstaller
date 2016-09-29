@@ -16,13 +16,13 @@ usage() {
     fi
 
     cat << EOF
-Usage: $PROGNAME [OPTION ...] [png-file] [icon-name]
-<Program description>.
+Usage: $PROGNAME [OPTION ...] [png_file] [icon_name]
+Given a png file and an icon name, install resized versions of the icon using
+xdg-icon-resource install
 
 Options:
   -h, --help          display this usage message and exit
-  -d, --delete        delete things
-  -o, --output [FILE] write output to file
+  --vendor [VENDOR]   install the icon as $VENDOR-$icon_name
 EOF
 
     exit 1
