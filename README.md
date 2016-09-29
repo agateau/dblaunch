@@ -43,7 +43,9 @@ This is `game1.desktop`:
 
 # Install
 
-Install the tools:
+First, if you don't have it,install DOSBox.
+
+The install the tools:
 
     make install
 
@@ -55,3 +57,7 @@ Create the config file:
 Whenever you change .desktop or .png:
 
     dblaunch-create-launchers
+
+# License
+
+BSD
