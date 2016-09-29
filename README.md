@@ -1,4 +1,9 @@
-# Minimalist DOSBox launcher
+# DBLaunch
+
+DBLaunch is a minimalist DOSBox launcher. It installs .desktop files which
+makes it possible to start DOS games from within standard applications menus.
+
+## Intro
 
 Assumes a base dir with the following layout:
 
@@ -41,11 +46,15 @@ This is `game1.desktop`:
 
 `game1.png` must be a square image, at least 128x128.
 
+# Dependencies
+
+- DOSBox
+- ImageMagick
+- xdg-utils
+
 # Install
 
-First, if you don't have it,install DOSBox.
-
-The install the tools:
+Install the tools:
 
     make install
 
