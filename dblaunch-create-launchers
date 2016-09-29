@@ -2,6 +2,7 @@
 set -e
 
 DBLAUNCH_CONF=$HOME/.config/dblaunch/dblaunch.conf
+APPS_DIR=$HOME/.local/share/applications
 
 die() {
     kdialog --error "$*"
@@ -19,9 +20,10 @@ if [ -z "$DOS_BASE_DIR" ] ; then
 fi
 
 cd $DOS_BASE_DIR
+mkdir -p $APPS_DIR
 for desktop_name in *.desktop ; do
     name=$(basename $desktop_name .desktop)
     echo "Installing desktop file for $name"
-    cp $desktop_name ~/.local/share/applications/
+    cp $desktop_name $APPS_DIR
     iconinstaller --vendor dblaunch $name.png $name
 done
