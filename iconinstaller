@@ -60,12 +60,13 @@ if [ -z "$icon_name" ] ; then
     usage "Not enough arguments"
 fi
 
+tmp_png=$(mktemp --suffix -iconinstaller.png)
 for size in $SIZES ; do
     echo "$size"
-    convert -resize ${size}x${size} $png_file tmp.png
-    xdg-icon-resource install --size $size tmp.png $vendor-$icon_name
-    rm tmp.png
+    convert -resize ${size}x${size} $png_file $tmp_png
+    xdg-icon-resource install --size $size $tmp_png $vendor-$icon_name
 done
+rm $tmp_png
 
 
 # vim:set ts=4 sw=4 et:
