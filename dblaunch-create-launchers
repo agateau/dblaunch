@@ -1,11 +1,11 @@
-#!/bin/sh
-set -e
+#!/usr/bin/bash
+set -euo pipefail
 
 DBLAUNCH_CONF=$HOME/.config/dblaunch/dblaunch.conf
 APPS_DIR=$HOME/.local/share/applications
 
 die() {
-    kdialog --error "$*"
+    echo "Error: $*" >&2
     exit 1
 }
 
@@ -25,5 +25,5 @@ for desktop_name in *.desktop ; do
     name=$(basename $desktop_name .desktop)
     echo "Installing desktop file for $name"
     cp $desktop_name $APPS_DIR
-    iconinstaller --vendor dblaunch $name.png $name
+    iconinstaller --vendor dblaunch $name.png $name || true
 done
